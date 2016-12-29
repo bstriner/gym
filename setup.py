@@ -12,7 +12,7 @@ extras = {
   'box2d': ['box2d-py'],
   'classic_control': ['PyOpenGL'],
   'mujoco': ['mujoco_py>=0.4.3', 'imageio'],
-  'parameter_tuning': ['keras', 'theano'],
+  'parameter_tuning': ['keras'],
 }
 
 # Meta dependency groups.
@@ -32,7 +32,7 @@ setup(name='gym',
                 if package.startswith('gym')],
       zip_safe=False,
       install_requires=[
-          'numpy>=1.10.4', 'requests>=2.0', 'six', 'pyglet>=1.2.0',
+          'numpy>=1.10.4', 'requests>=2.0', 'six', 'pyglet>=1.2.0', 'scipy>=0.17.1',
       ],
       extras_require=extras,
       package_data={'gym': ['envs/mujoco/assets/*.xml', 'envs/classic_control/assets/*.png']},
