@@ -8,6 +8,7 @@ import six
 from gym import error, version
 from gym.monitoring import stats_recorder, video_recorder
 from gym.utils import atomic_write, closer
+from gym.utils.json_utils import json_encode_np
 
 logger = logging.getLogger(__name__)
 
@@ -180,7 +181,7 @@ class MonitorManager(object):
                 'videos': [(os.path.basename(v), os.path.basename(m))
                            for v, m in self.videos],
                 'env_info': self._env_info(),
-            }, f)
+            }, f, default=json_encode_np)
 
     def close(self):
         """Flush all monitor data to disk and close any open rending windows."""

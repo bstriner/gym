@@ -118,8 +118,7 @@ class Env(object):
             space. (Initial reward is assumed to be 0.)
         """
         if self.metadata.get('configure.required') and not self._configured:
-            raise error.Error("{} requires manually calling 'configure()' before 'reset()'".format(self))
-        elif not self._configured:
+            logger.warning("Called reset on %s before configuring. Configuring automatically with default arguments", self)
             self.configure()
         observation = self._reset()
         return observation
@@ -311,9 +310,7 @@ class Wrapper(Env):
 
         self._update_wrapper_stack()
         if env and env._configured:
-            # TODO: CartPole currently calls configure on `make`. Fix this so that we can use WrapAfterConfigureError
-            # raise error.WrapAfterConfigureError("Attempted to wrap env {} after .configure() was called. All wrappers must be applied before calling .configure()".format(env))
-            logger.warn("Attempted to wrap env {} after .configure() was called. All wrappers must be applied before calling .configure()".format(env))
+            logger.warning("Attempted to wrap env %s after .configure() was called.", env)
 
     def _update_wrapper_stack(self):
         """
